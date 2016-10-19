@@ -12308,7 +12308,7 @@ Relevance:</li>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[61]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import the three supervised learning models from sklearn</span>
@@ -12318,7 +12318,7 @@ Relevance:</li>
 
 <span class="c1"># TODO: Initialize the three models</span>
 <span class="n">clf_A</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1002</span><span class="p">)</span>
-<span class="n">clf_B</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1001</span><span class="p">)</span>
+<span class="n">clf_B</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1001</span><span class="p">)</span>
 <span class="n">clf_C</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span><span class="c1">#learning_rate=.01,n_estimators=200,</span>
 
 <span class="c1"># TODO: Set up the training set sizes</span>
@@ -12362,55 +12362,131 @@ F1 score for training set: 1.0000.
 Made predictions in 0.0003 seconds.
 F1 score for test set: 0.6316.
 Training a SVC using a training set size of 100. . .
-Trained model in 0.0012 seconds
-Made predictions in 0.0007 seconds.
-F1 score for training set: 0.9120.
-Made predictions in 0.0007 seconds.
-F1 score for test set: 0.7571.
+Trained model in 0.0018 seconds
+Made predictions in 0.0011 seconds.
+F1 score for training set: 0.8906.
+Made predictions in 0.0008 seconds.
+F1 score for test set: 0.8056.
 Training a GradientBoostingClassifier using a training set size of 100. . .
-Trained model in 0.0530 seconds
+Trained model in 0.0540 seconds
 Made predictions in 0.0005 seconds.
 F1 score for training set: 1.0000.
-Made predictions in 0.0003 seconds.
+Made predictions in 0.0005 seconds.
 F1 score for test set: 0.7385.
 Training a DecisionTreeClassifier using a training set size of 200. . .
-Trained model in 0.0012 seconds
+Trained model in 0.0024 seconds
 Made predictions in 0.0002 seconds.
 F1 score for training set: 1.0000.
-Made predictions in 0.0003 seconds.
+Made predictions in 0.0002 seconds.
 F1 score for test set: 0.6718.
 Training a SVC using a training set size of 200. . .
-Trained model in 0.0046 seconds
-Made predictions in 0.0029 seconds.
-F1 score for training set: 0.8930.
-Made predictions in 0.0016 seconds.
-F1 score for test set: 0.8366.
+Trained model in 0.0043 seconds
+Made predictions in 0.0027 seconds.
+F1 score for training set: 0.8502.
+Made predictions in 0.0013 seconds.
+F1 score for test set: 0.8428.
 Training a GradientBoostingClassifier using a training set size of 200. . .
-Trained model in 0.0627 seconds
-Made predictions in 0.0006 seconds.
+Trained model in 0.0658 seconds
+Made predictions in 0.0007 seconds.
 F1 score for training set: 1.0000.
 Made predictions in 0.0003 seconds.
 F1 score for test set: 0.8227.
 Training a DecisionTreeClassifier using a training set size of 300. . .
-Trained model in 0.0018 seconds
+Trained model in 0.0019 seconds
 Made predictions in 0.0002 seconds.
 F1 score for training set: 1.0000.
 Made predictions in 0.0001 seconds.
 F1 score for test set: 0.7737.
 Training a SVC using a training set size of 300. . .
-Trained model in 0.0056 seconds
-Made predictions in 0.0042 seconds.
-F1 score for training set: 0.8793.
+Trained model in 0.0059 seconds
+Made predictions in 0.0043 seconds.
+F1 score for training set: 0.8552.
 Made predictions in 0.0014 seconds.
-F1 score for test set: 0.8481.
+F1 score for test set: 0.8500.
 Training a GradientBoostingClassifier using a training set size of 300. . .
 Trained model in 0.0786 seconds
-Made predictions in 0.0011 seconds.
+Made predictions in 0.0010 seconds.
 F1 score for training set: 0.9700.
-Made predictions in 0.0007 seconds.
+Made predictions in 0.0003 seconds.
 F1 score for test set: 0.8267.
 </pre>
 </div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[70]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">clf_C</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">,</span><span class="nb">list</span><span class="p">(</span><span class="n">X_all</span><span class="o">.</span><span class="n">columns</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[70]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(0.0, &#39;school_GP&#39;),
+ (0.0, &#39;Fjob_health&#39;),
+ (0.00057886214188599848, &#39;Pstatus_T&#39;),
+ (0.00058960563453568635, &#39;Fjob_teacher&#39;),
+ (0.00059984550044648785, &#39;Pstatus_A&#39;),
+ (0.0012890784778320698, &#39;guardian_mother&#39;),
+ (0.0026712445442213374, &#39;romantic&#39;),
+ (0.0031366432617064765, &#39;famsize_GT3&#39;),
+ (0.0042009286982156056, &#39;address_U&#39;),
+ (0.0046897025426909985, &#39;Fjob_other&#39;),
+ (0.0051212687130380843, &#39;famsize_LE3&#39;),
+ (0.0065545464076300977, &#39;school_MS&#39;),
+ (0.0068004288679554357, &#39;reason_home&#39;),
+ (0.0069003642768915045, &#39;paid&#39;),
+ (0.0069406082363457442, &#39;guardian_father&#39;),
+ (0.0073885259001104861, &#39;reason_other&#39;),
+ (0.0079031434948377971, &#39;sex_F&#39;),
+ (0.0084969200372810322, &#39;reason_course&#39;),
+ (0.0085593854383394438, &#39;Fjob_at_home&#39;),
+ (0.0088032232308426807, &#39;address_R&#39;),
+ (0.0089491940218068486, &#39;higher&#39;),
+ (0.0089847926490344374, &#39;sex_M&#39;),
+ (0.0094675790768699412, &#39;reason_reputation&#39;),
+ (0.010099137463213798, &#39;guardian_other&#39;),
+ (0.010380514286924101, &#39;traveltime&#39;),
+ (0.013095883622852005, &#39;age&#39;),
+ (0.01310529416222129, &#39;famsup&#39;),
+ (0.013799970705319903, &#39;Fjob_services&#39;),
+ (0.01436634419785624, &#39;Mjob_other&#39;),
+ (0.014614835232447054, &#39;activities&#39;),
+ (0.019322793165538678, &#39;Mjob_at_home&#39;),
+ (0.020100926288634958, &#39;nursery&#39;),
+ (0.020979526300405636, &#39;Mjob_services&#39;),
+ (0.021214908894887904, &#39;Mjob_teacher&#39;),
+ (0.022112519472370272, &#39;Fedu&#39;),
+ (0.022275820645034083, &#39;studytime&#39;),
+ (0.023877544310626466, &#39;freetime&#39;),
+ (0.024736747910863669, &#39;internet&#39;),
+ (0.028728297036351613, &#39;Mjob_health&#39;),
+ (0.030101224659873142, &#39;famrel&#39;),
+ (0.040179025646202945, &#39;schoolsup&#39;),
+ (0.047371186082139208, &#39;Walc&#39;),
+ (0.05485791048258782, &#39;Medu&#39;),
+ (0.058617532294266521, &#39;Dalc&#39;),
+ (0.061485544469765695, &#39;health&#39;),
+ (0.073812262105518264, &#39;goout&#39;),
+ (0.083457322697901404, &#39;failures&#39;),
+ (0.13868103671367915, &#39;absences&#39;)]</pre>
+</div>
+
 </div>
 
 </div>
@@ -12479,24 +12555,24 @@ F1 score for test set: 0.8267.
 <tbody>
 <tr>
 <td style="text-align:center">100</td>
-<td style="text-align:center">0.0014</td>
-<td style="text-align:center">0.0008</td>
-<td style="text-align:center">0.9120</td>
-<td style="text-align:center">0.7571</td>
+<td style="text-align:center">0.0018</td>
+<td style="text-align:center">0.0011</td>
+<td style="text-align:center">0.8906</td>
+<td style="text-align:center">0.8056</td>
 </tr>
 <tr>
 <td style="text-align:center">200</td>
-<td style="text-align:center">0.0029</td>
-<td style="text-align:center">0.0021</td>
-<td style="text-align:center">0.8930</td>
-<td style="text-align:center">0.8366</td>
+<td style="text-align:center">0.0043</td>
+<td style="text-align:center">0.0013</td>
+<td style="text-align:center">0.8502</td>
+<td style="text-align:center">0.8428</td>
 </tr>
 <tr>
 <td style="text-align:center">300</td>
-<td style="text-align:center">0.0057</td>
-<td style="text-align:center">0.0043</td>
-<td style="text-align:center">0.8793</td>
-<td style="text-align:center">0.8481</td>
+<td style="text-align:center">0.0059</td>
+<td style="text-align:center">0.0014</td>
+<td style="text-align:center">0.8552</td>
+<td style="text-align:center">0.8500</td>
 </tr>
 </tbody>
 </table>
@@ -12564,7 +12640,8 @@ F1 score for test set: 0.8267.
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong>
-The best model is the GradientBoostingClassifier based on the tests performed above. It gave a better test set F1 score compared to other models. This model is well suited since the training set is small and the conditional probabilities can't be defined for all features for a small dataset. This model performs well and adding more iterations will find a optimal fit that minimizes training and test error. The training time is slightly higher compared to other models that is run for this dataset, because it does ensemble of incremental evaluation and learning.</p>
+The best model is the GradientBoostingClassifier based on the tests performed above. It gave a better test set F1 score compared to other models. This model is well suited since the training set is small and the conditional probabilities can't be defined for all features for a small dataset. This model performs well and adding more iterations will find a optimal fit that minimizes training and test error. The training time is slightly higher compared to other models that is run for this dataset, because it does ensemble of incremental evaluation and learning. 
+Gradient Boosting Classifier does a functional gradient descent by adding additional weak trees for the negative gradient descent. On each additional step a weak classifier is build based on the weight distribution for the dataset at each step where weight increases for incorrectly classified examples and decreases the weight of correctly classified examples. The final function defines the gradient boosting classifier model that is evaluated on the test set.</p>
 
 </div>
 </div>
@@ -12585,7 +12662,7 @@ The best model is the GradientBoostingClassifier based on the tests performed ab
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong>
-Gradient Boosting Classifier does a functional gradient descent by adding additional weak trees for the negative gradient descent. On each additional step a weak classifier is build based on the weight distribution for the dataset at each step where weight increases for incorrectly classified examples and decreases the weight of correctly classified examples. The final function defines the gradient boosting classifier model that is evaluated on the test set.</p>
+Gradient Boosting Classifier takes data about previous student graduation outcomes which will include their background information like age, gender, family and other relevant information to generate a model that will help administrators decide on the current or future student outcomes. As shown in the above model, absences and failures have higher importance in deciding student outcomes. The rules generated by the model takes into consideration how well the students can be grouped into two distinctive passed and failed outcome groups, with maximum possible seperation between them so that new students outcome can be decided with greater confidence. This model reduced possible mistakes in future predictions by building it in steps with each further step increasing the accuracy of the model.</p>
 
 </div>
 </div>
