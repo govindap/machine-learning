@@ -11964,7 +11964,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[128]:</div>
+<div class="prompt input_prompt">In&nbsp;[158]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Select three indices of your choice you wish to sample from the dataset</span>
@@ -11974,6 +11974,8 @@ div#notebook {
 <span class="n">samples</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indices</span><span class="p">],</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
 <span class="k">print</span> <span class="s2">&quot;Chosen samples of wholesale customers dataset:&quot;</span>
 <span class="n">display</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">samples</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">samples</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">median</span><span class="p">()))</span>
 </pre></div>
 
 </div>
@@ -12042,6 +12044,108 @@ div#notebook {
 
 </div>
 
+<div class="output_area"><div class="prompt"></div>
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fresh</th>
+      <th>Milk</th>
+      <th>Grocery</th>
+      <th>Frozen</th>
+      <th>Detergents_Paper</th>
+      <th>Delicatessen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4165.0</td>
+      <td>-1566.0</td>
+      <td>-356.0</td>
+      <td>-2871.0</td>
+      <td>1122.0</td>
+      <td>-1468.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-5731.0</td>
+      <td>-4701.0</td>
+      <td>-5971.0</td>
+      <td>788.0</td>
+      <td>-2272.0</td>
+      <td>637.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-406.0</td>
+      <td>1983.0</td>
+      <td>4193.0</td>
+      <td>180.0</td>
+      <td>5154.0</td>
+      <td>1504.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fresh</th>
+      <th>Milk</th>
+      <th>Grocery</th>
+      <th>Frozen</th>
+      <th>Detergents_Paper</th>
+      <th>Delicatessen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>7661.0</td>
+      <td>603.0</td>
+      <td>2839.0</td>
+      <td>-1325.0</td>
+      <td>3187.0</td>
+      <td>-909.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-2235.0</td>
+      <td>-2532.0</td>
+      <td>-2776.0</td>
+      <td>2334.0</td>
+      <td>-207.0</td>
+      <td>1196.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3090.0</td>
+      <td>4152.0</td>
+      <td>7388.0</td>
+      <td>1726.0</td>
+      <td>7219.0</td>
+      <td>2063.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -12064,9 +12168,22 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
-<p>Sample 1 could be a grocery/retailer store where products are sold as a basket of related products, and products are sold at around average of each product category</p>
-<p>Sample 2 could be a cafe/Hotel/Resturent where low quantities of all product categories are sold and more Fresh is sold.</p>
-<p>Sample 3 could be a grocery/retailer where all the items are sold at around average levels.</p>
+<p>Sample 1 could be a grocery/retailer store where products are sold as a basket of related products:</p>
+<ul>
+<li>Fresh, Detergents_paper sold above mean/median; </li>
+<li>Milk, Grocery below Mean but above Median</li>
+<li>Frozen, Deli below Mean/Median</li>
+</ul>
+<p>Sample 2 could be a cafe/Hotel/Restaurent:</p>
+<ul>
+<li>Fresh, Milk, Grocery, Detergents below Mean/Median signifying low sales;</li>
+<li>Deli and Frozen above Mean/Median</li>
+</ul>
+<p>Sample 3 could be a grocery/retailer:</p>
+<ul>
+<li>Detergents_paper,Milk, Grocery,Frozen and Deli sold above mean/median; </li>
+<li>Frozen above Median and close to Mean</li>
+</ul>
 
 </div>
 </div>
@@ -12186,6 +12303,7 @@ score for Delicatessen is -14.0456
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong>
 By having Detergents_Paper being the target variable, R^2 score is 0.75 which is closer to 1(perfect fit) compared to other variables being target variables. It means that there exists linear relationship between Detergents_Paper and other purchases.</p>
+<p>Detergents_paper will be relevant for understanding customer spending habits since there is not a perfect correlation of 1 with other variables, it adds value for understanding customer spending habits.</p>
 
 </div>
 </div>
@@ -18526,7 +18644,7 @@ Once you have performed this implementation, the dataset will be stored in the v
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong>
-There are outliers for more than one feature(points 66, 75, 128 and 154). I deleted all the outliers, since outliers will affect the k-mean centers of the K-means clustering algorithm and will skew the distribution of the clusters. K-means are sensitive to the noise in the dataset since it uses distance metric for calcuating K-means</p>
+There are outliers for more than one feature(points 65, 66, 75, 128 and 154). I deleted all the outliers, since outliers will affect the k-mean centers of the K-means clustering algorithm and will skew the distribution of the clusters. K-means are sensitive to the noise in the dataset since it uses distance metric for calcuating K-means</p>
 
 </div>
 </div>
@@ -21160,7 +21278,7 @@ JEkDwwJIkiRJ0sCwAJIkSZI0MCyAJEmSJA0MCyBJkiRJA8MCSJIkSdLAsACSJEmSNDD+BxVQ97ol
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[149]:</div>
+<div class="prompt input_prompt">In&nbsp;[181]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Inverse transform the centers</span>
@@ -21230,6 +21348,251 @@ JEkDwwJIkiRJ0sCwAJIkSZI0MCyAJEmSJA0MCyBJkiRJA8MCSJIkSdLAsACSJEmSNDD+BxVQ97ol
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[183]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+<span class="n">display</span><span class="p">(</span><span class="n">true_centers</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">)))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">true_centers</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">true_centers</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">median</span><span class="p">()))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fresh</th>
+      <th>Milk</th>
+      <th>Grocery</th>
+      <th>Frozen</th>
+      <th>Detergents_Paper</th>
+      <th>Delicatessen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>440.000000</td>
+      <td>440.000000</td>
+      <td>440.000000</td>
+      <td>440.000000</td>
+      <td>440.000000</td>
+      <td>440.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>12000.297727</td>
+      <td>5796.265909</td>
+      <td>7951.277273</td>
+      <td>3071.931818</td>
+      <td>2881.493182</td>
+      <td>1524.870455</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>12647.328865</td>
+      <td>7380.377175</td>
+      <td>9503.162829</td>
+      <td>4854.673333</td>
+      <td>4767.854448</td>
+      <td>2820.105937</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>3.000000</td>
+      <td>55.000000</td>
+      <td>3.000000</td>
+      <td>25.000000</td>
+      <td>3.000000</td>
+      <td>3.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>3127.750000</td>
+      <td>1533.000000</td>
+      <td>2153.000000</td>
+      <td>742.250000</td>
+      <td>256.750000</td>
+      <td>408.250000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>8504.000000</td>
+      <td>3627.000000</td>
+      <td>4755.500000</td>
+      <td>1526.000000</td>
+      <td>816.500000</td>
+      <td>965.500000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>16933.750000</td>
+      <td>7190.250000</td>
+      <td>10655.750000</td>
+      <td>3554.250000</td>
+      <td>3922.000000</td>
+      <td>1820.250000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>112151.000000</td>
+      <td>73498.000000</td>
+      <td>92780.000000</td>
+      <td>60869.000000</td>
+      <td>40827.000000</td>
+      <td>47943.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fresh</th>
+      <th>Milk</th>
+      <th>Grocery</th>
+      <th>Frozen</th>
+      <th>Detergents_Paper</th>
+      <th>Delicatessen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Segment 0</th>
+      <td>-3080.0</td>
+      <td>4153.0</td>
+      <td>6776.0</td>
+      <td>-403.0</td>
+      <td>3628.0</td>
+      <td>170.0</td>
+    </tr>
+    <tr>
+      <th>Segment 1</th>
+      <td>947.0</td>
+      <td>-1689.0</td>
+      <td>-2307.0</td>
+      <td>674.0</td>
+      <td>-509.0</td>
+      <td>-195.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fresh</th>
+      <th>Milk</th>
+      <th>Grocery</th>
+      <th>Frozen</th>
+      <th>Detergents_Paper</th>
+      <th>Delicatessen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Segment 0</th>
+      <td>-6576.0</td>
+      <td>1984.0</td>
+      <td>3581.0</td>
+      <td>-1949.0</td>
+      <td>1563.0</td>
+      <td>-389.0</td>
+    </tr>
+    <tr>
+      <th>Segment 1</th>
+      <td>-2549.0</td>
+      <td>-3858.0</td>
+      <td>-5502.0</td>
+      <td>-872.0</td>
+      <td>-2574.0</td>
+      <td>-754.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fresh</th>
+      <th>Milk</th>
+      <th>Grocery</th>
+      <th>Frozen</th>
+      <th>Detergents_Paper</th>
+      <th>Delicatessen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Segment 0</th>
+      <td>-3080.0</td>
+      <td>4153.0</td>
+      <td>6776.0</td>
+      <td>-403.0</td>
+      <td>3628.0</td>
+      <td>170.0</td>
+    </tr>
+    <tr>
+      <th>Segment 1</th>
+      <td>947.0</td>
+      <td>-1689.0</td>
+      <td>-2307.0</td>
+      <td>674.0</td>
+      <td>-509.0</td>
+      <td>-195.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -21246,9 +21609,15 @@ JEkDwwJIkiRJ0sCwAJIkSZI0MCyAJEmSJA0MCyBJkiRJA8MCSJIkSdLAsACSJEmSNDD+BxVQ97ol
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer:</strong>
-Cluster 0 seems to represent groceries/retailers where groceries have high sales and other related categories have comparable sales since point sales represent related products sold together. 
-Cluster 1 seems to represent establishments with low overall sales like Cafe's/Hotels/Restaurents. Their cluster center values are much lower than individual feature means. They are high in fresh category sales compared to cluster 0.</p>
+<p><strong>Answer:</strong></p>
+<p>Cluster 0 seems to represent groceries/retailers:</p>
+<p>Fresh, Frozen below the Mean/Median/50%
+Milk, Grocery, Detergents_Paper above the Mean/Median/50%
+Deli just above the Median/50% and below Mean</p>
+<p>Cluster 1 seems to represent establishments with low overall sales like Cafe's/Hotels/Restaurents:</p>
+<p>Milk, Grocery, Detergents_Paper, Deli below the Mean/Median/50%
+Fresh, Frozen just above the Median/50% and below Mean</p>
+<p>Comparing cluster centers with Mean/Median/50% provided nice constrast in their customer segmentation profiles.</p>
 
 </div>
 </div>
