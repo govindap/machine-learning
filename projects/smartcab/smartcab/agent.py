@@ -15,23 +15,29 @@ class LearningAgent(Agent):
         self.q = defaultdict(float)
         self.alpa = 1.0
         self.gamma = 0.5
+        self.epsilon = 0.3
         self.actions = [None, 'forward', 'left', 'right']
         self.total_rewards = 0.0
-        self.total_steps = 0
+        self.total_steps = 1
+        self.negativeRewards = 0.0
 
     def actionQ(self,state):
         ex = [self.q.get((state,action)) for action in self.actions]
         maxq = max(ex)
-        if(self.q.get((state,self.next_waypoint),0.0) >= 0.0):
-            act = self.actions.index(self.next_waypoint)
-        elif(maxq >= 0.0):
-            act = random.choice([k for k in range(len(self.actions)) if ex[k] >= 0.0])
+        noneC = ex.count(None)
+        if(random.random() < self.epsilon/self.total_steps):
+            return random.choice(self.actions)
+        elif(maxq > 0.0):
+            act = random.choice([k for k in range(len(self.actions)) if ex[k] == maxq])
+        elif(noneC > 0):
+            act = random.choice([k for k in range(len(self.actions)) if ex[k] is None])
         else:
-            act = self.actions.index(None)
+            act = random.choice([k for k in range(len(self.actions)) if ex[k] == maxq])
         return self.actions[act]
 
     def randomAction(self):
         return random.choice(self.actions)
+
     def learnQ(self,state,action,reward,nstate):
         prevq = self.q.get((state,action))
         exn = [self.q.get((nstate, a)) for a in self.actions]
@@ -52,9 +58,8 @@ class LearningAgent(Agent):
         inputs = self.env.sense(self)
         deadline = self.env.get_deadline(self)
 
-
         # TODO: Update state
-        self.state = (inputs['light'], inputs['oncoming'], inputs['left'], inputs['right'])
+        self.state = (self.next_waypoint, inputs['light'], inputs['oncoming'], inputs['left'], inputs['right'])
         
         # TODO: Select action according to your policy
         action = self.actionQ(self.state)
@@ -62,16 +67,21 @@ class LearningAgent(Agent):
         # Execute action and get reward
         reward = self.env.act(self, action)
 
-
         # TODO: Learn policy based on state, action, reward
         ninputs = self.env.sense(self)
-        nstate = (ninputs['light'], ninputs['oncoming'], ninputs['left'], ninputs['right'])
+        nnext_waypoint = self.planner.next_waypoint()
+        nstate = (nnext_waypoint, ninputs['light'], ninputs['oncoming'], ninputs['left'], ninputs['right'])
         self.learnQ(self.state, action, reward, nstate)
 
         self.total_rewards += reward
         self.total_steps += 1
+        if (reward < 0):
+            self.negativeRewards += reward
+
         #print "LearningAgent.update(): deadline = {}, inputs = {}, action = {}, reward = {}, nextwaypoint={}, q={}".format(deadline, inputs, action, reward, self.next_waypoint,self.q)  # [debug]
-        #print "LearningAgent.update(): total_steps so far = {}, total_rewards so far = {}".format(self.total_steps,self.total_rewards)
+        print "LearningAgent.update(): total_steps so far = {}, total_rewards so far = {}, total_negative_rewards = {}".format(self.total_steps,self.total_rewards,self.negativeRewards)
+        #print "Negative reward: inputs = {}, action = {}, reward = {}, waypoint {}".format(inputs, action, reward, self.next_waypoint)
+        #for i in self.q.items(): print(str(i).replace('(', '').replace(')', ''))
 
 def run():
     """Run the agent for a finite number of trials."""
@@ -83,10 +93,10 @@ def run():
     # NOTE: You can set enforce_deadline=False while debugging to allow longer trials
 
     # Now simulate it
-    sim = Simulator(e, update_delay=1, display=False)  # create simulator (uses pygame when display=True, if available)
+    sim = Simulator(e, update_delay=0.000001, display=False)  # create simulator (uses pygame when display=True, if available)
     # NOTE: To speed up simulation, reduce update_delay and/or set display=False
 
-    sim.run(n_trials=100)  # run for a specified number of trials
+    sim.run(n_trials=1000)  # run for a specified number of trials
     # NOTE: To quit midway, press Esc or close pygame window, or hit Ctrl+C on the command-line
 
 if __name__ == '__main__':
